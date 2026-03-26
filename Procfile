@@ -1,2 +1,2 @@
-web: gunicorm main:app
+web: gunicorn main:app
 worker: python scheduler.py
