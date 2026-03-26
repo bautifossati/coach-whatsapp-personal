@@ -5,7 +5,9 @@ y para crear/consultar eventos en tu calendario.
 """
 
 import gspread
+import json
 import logging
+import os
 from datetime import datetime, timedelta
 from google.oauth2.service_account import Credentials
 from googleapiclient.discovery import build
@@ -31,9 +33,22 @@ SCOPES = [
 # GOOGLE SHEETS — Lectura y escritura
 # ─────────────────────────────────────────────────────────────
 
+def _get_credentials():
+    """
+    Devuelve las credenciales de Google.
+    Primero intenta leer desde la variable de entorno GOOGLE_CREDENTIALS_JSON
+    (útil en Railway/cloud). Si no existe, lee el archivo local.
+    """
+    creds_json = os.getenv("GOOGLE_CREDENTIALS_JSON", "")
+    if creds_json:
+        info = json.loads(creds_json)
+        return Credentials.from_service_account_info(info, scopes=SCOPES)
+    return Credentials.from_service_account_file(GOOGLE_CREDENTIALS_PATH, scopes=SCOPES)
+
+
 def _get_sheets_client():
     """Devuelve el cliente autenticado de Google Sheets."""
-    creds = Credentials.from_service_account_file(GOOGLE_CREDENTIALS_PATH, scopes=SCOPES)
+    creds = _get_credentials()
     return gspread.authorize(creds)
 
 
@@ -144,7 +159,7 @@ def marcar_tarea_completa(nombre_tarea: str) -> bool:
 
 def _get_calendar_service():
     """Devuelve el servicio autenticado de Google Calendar."""
-    creds = Credentials.from_service_account_file(GOOGLE_CREDENTIALS_PATH, scopes=SCOPES)
+    creds = _get_credentials()
     return build("calendar", "v3", credentials=creds)
 
 
