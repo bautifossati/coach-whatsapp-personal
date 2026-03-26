@@ -1,7 +1,7 @@
 """
 config.py — Configuración del Coach Personal WhatsApp
 Cargá tus claves en el archivo .env y este archivo las lee automáticamente.
-NO subas el archivo .env to GitHub ni compartas estas claves con nadie.
+NO subas el archivo .env a GitHub ni compartas estas claves con nadie.
 """
 
 import os
@@ -46,12 +46,12 @@ MI_NUMERO_WHATSAPP = os.getenv("MI_NUMERO_WHATSAPP", "")
 GOOGLE_CREDENTIALS_PATH = os.getenv("GOOGLE_CREDENTIALS_PATH", "credentials.json")
 
 # ID de tu Google Sheets (es la parte larga de la URL entre /d/ y /edit)
-# Ejemplo: https://docs.google.com/spreadsheets/d/1ABC123.../edit ↲ "1ABC123..."
+# Ejemplo: https://docs.google.com/spreadsheets/d/1ABC123.../edit → "1ABC123..."
 SHEETS_ID = os.getenv("SHEETS_ID", "")
 
 # Nombre de la hoja dentro del Sheets donde organizás tu semana
 # Por defecto "Semana", cambialo si tuya se llama diferente
-NOMBRE_HOJA_SEMAND = os.getenv("NOMBRE_HOJA_SEMANA", "Semana")
+NOMBRE_HOJA_SEMANA = os.getenv("NOMBRE_HOJA_SEMANA", "Semana")
 
 # ID del calendario de Google Calendar donde querés que el agente cree eventos
 # Para tu calendario principal, usá "primary"
@@ -68,7 +68,7 @@ TIMEZONE = "America/Argentina/Buenos_Aires"
 # ─────────────────────────────────────────────────────────────
 
 def validar_configuracion():
-    """Verifica que las claves esenciales estén configuradas."""
+    """Verifica que las claves esenciales estìn configuradas."""
     problemas = []
 
     if not WHATSAPP_TOKEN:
@@ -76,11 +76,11 @@ def validar_configuracion():
     if not PHONE_NUMBER_ID:
         problemas.append("❌ PHONE_NUMBER_ID no está configurado")
     if not MI_NUMERO_WHATSAPP:
-        problemas.append("❌ SI_NUMERO_WHATSAPP no está configurado")
+        problemas.append("❌ MI_NUMERO_WHATSAPP no está configurado")
     if not SHEETS_ID:
-        problemas.append("⚨️  SHEETS_ID no está configurado (Sheets no va a funcionar)")
+        problemas.append("⚠️  SHEETS_ID no está configurado (Sheets no va a funcionar)")
     if not os.path.exists(GOOGLE_CREDENTIALS_PATH):
-        problemas.append(f"⚨️  No se encontró el archivo de credenciales de Google en '{GOOGLE_CREDENTIALS_PATH}'")
+        problemas.append(f"⚠️  No se encontró el archivo de credenciales de Google en '{GOOGLE_CREDENTIALS_PATH}'")
 
     if problemas:
         print("\n🚨 Problemas de configuración encontrados:")
