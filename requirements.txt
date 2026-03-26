@@ -1,0 +1,22 @@
+# Servidor web
+flask==3.0.0
+gunicorn==21.2.0
+
+# IA de Anthropic (Claude)
+anthropic==0.40.0
+
+# WhatsApp y requests HTTP
+requests==2.31.0
+
+# Variables de entorno
+python-dotenv==1.0.0
+
+# Google Sheets y Calendar
+gspread==6.0.0
+google-auth==2.27.0
+google-api-python-client==2.116.0
+google-auth-httplib2==0.2.0
+google-auth-oauthlib==1.2.0
+
+# Scheduler de mensajes automáticos
+APScheduler==3.10.4
