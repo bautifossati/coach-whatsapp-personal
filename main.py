@@ -45,10 +45,10 @@ def webhook():
             entry = data["entry"][0]["changes"][0]["value"]
 
             # Solo procesar si hay mensajes (no notificaciones de estado)
-            if "messajes" not in entry:
+            if "messages" not in entry:
                 return "OK", 200
 
-            mensaje = entry["messajes"][0]
+            mensaje = entry["messages"][0]
             numero = mensaje["from"]
             tipo = mensaje.get("type", "")
 
@@ -66,8 +66,9 @@ def webhook():
             from agent import enviar_mensaje
             enviar_mensaje(numero, respuesta)
 
-        except (KeyError, IndexError) as e:
-            logger.error(f"Error procesando mensaje: {e}")
+        except Exception as e:
+            import traceback
+            logger.error(f"Error procesando mensaje: {e}\n{traceback.format_exc()}")
 
         return "OK", 200
 
